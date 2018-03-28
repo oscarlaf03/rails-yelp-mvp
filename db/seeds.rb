@@ -6,22 +6,33 @@ require 'faker'
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+puts 'Creating Restaurants'
 50.times do
   Restaurant.new(
-    name: Faker::Company.name + Faker::Hipster.word + Faker::Food.ingredient,
-    address: Faker::Address.street_address + Faker::Address.city + Faker::Address.state + Faker::Address.country,
+    name: Faker::Company.name +' '+Faker::Hipster.word +' '+Faker::Food.ingredient,
+    address: Faker::Address.street_address + ' '+ Faker::Address.city + ' '+ Faker::Address.state +' ' + Faker::Address.country,
     phone_number: Faker::PhoneNumber.phone_number,
     category: %w[chinese italian japanese french belgian].sample
     ).save
 end
 
+puts 'Restaurants created succesfully'
 random_restaurant_id = Restaurant.all.sample.id
 
-
+=begin
+puts 'Creating reviews'
 50.times do
-  Review.new(
-    content: Faker::Movie.quote + 'with'+ Faker::Food.description,
+  a_review = Review.new(
+    content: Faker::Movie.quote + 'with'+ Faker::Food.dish,
     rating: [0, 1, 2, 3, 4, 5].sample,
-    resaurant_id: Restaurant.all.sample.id
     ).save
+  a_review.restaurant.id = Restaurant.all.sample.review
 end
+=end
+puts 'Reviews created succesfully'
+puts '*****************************'
+puts 'Tasks completed'
+
+
+
