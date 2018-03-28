@@ -4,7 +4,10 @@
 <table class='table'>
   <tr>
     <th>Name</th>
-    <th>Category</th>
+    <th>Cuisine</th>
+    <th>See</th>
+    <th>Edit</th>
+    <th>Delete</th>
   </tr>
   <% @restaurants.each do |restaurant| %>
   <tr>
@@ -15,10 +18,13 @@
       <%= restaurant.category %>
     </td>
     <td>
-       Show
+       <%= link_to '', restaurant_path(restaurant), class: 'fas fa-eye fa-lg' %>
     </td>
-    <td> Edit</td>
-    <td> Destroy
+    <td>
+      <%= link_to '', edit_restaurant_path(restaurant), class: 'far fa-edit fa-lg' %>
+    </td>
+    <td>
+      <%= link_to '', restaurant_path(restaurant),method: :delete, data: { confirm: "Are you sure?" }, class: 'far fa-trash-alt fa-lg' %>
     </td>
   </tr>
   <% end %>

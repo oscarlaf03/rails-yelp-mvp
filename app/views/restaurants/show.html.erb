@@ -1,2 +1,71 @@
-<h1>Restaurants#show</h1>
-<p>Find me in app/views/restaurants/show.html.erb</p>
+<h1><%= @restaurant.name %></h1>
+<h3>
+  <i class="fas fa-utensils fa-xs"></i>
+  <%= @restaurant.category %>
+</h3>
+<h3>
+  <i class="fas fa-phone fa-xs"></i>
+  <%= @restaurant.phone_number %>
+</h3>
+<h3>
+  <i class="fas fa-map-marker fa-xs"></i>
+  <%= @restaurant.address %>
+</h3>
+<p class='action-option-icons'>
+  <%= link_to '', edit_restaurant_path(@restaurant), class: 'far fa-edit fa-lg' %>
+  <%= link_to '', restaurant_path(@restaurant),method: :delete, data: { confirm: "Are you sure?" }, class: 'far fa-trash-alt fa-lg' %>
+</p>
+
+<% if @reviews.count.positive? %>
+  <h2>
+    Total reviews: <%= @total_reviews %>
+  </h2>
+  <h2>
+    Average Rating: <%= @rating_average %>
+  </h2>
+<% else %>
+  <h2>Be the firstone to review this restaurant</h2>
+<% end %>
+
+<h3>Add your review </h3>
+<%= simple_form_for [@restaurant, @review] do |f| %>
+  <% if @review.errors.any? %>
+    <div class="errors-container">
+      <ul>
+        <% @review.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.input :content, as: :text  %>
+  <%= f.input :rating, collection: [0, 1, 2, 3, 4, 5] %>
+  <%= f.submit "add a review", class: "btn btn-success btn-lg" %>
+<% end %>
+
+
+<div class="review-card">
+  <h3><%= @reviews.count.positive? ? "Reviews for #{@restaurant.name}" : '' %></h3>
+  <% if @reviews.count.positive? %>
+    <table class='table'>
+      <tr>
+        <th>
+          Comments
+        </th>
+        <th>
+          Rating
+        </th>
+      </tr>
+      <% @reviews.each do |review| %>
+      <tr>
+        <td>
+          <%= review.content %>
+        </td>
+        <td>
+          <%= review.rating %>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>

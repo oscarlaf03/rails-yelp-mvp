@@ -25,6 +25,10 @@ class ReviewsController < ApplicationController
   def edit
   end
 
+  def destroy
+    @review.destroy
+  end
+
   private
 
   def check_params_review

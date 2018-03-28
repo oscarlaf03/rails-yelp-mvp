@@ -10,8 +10,8 @@ require 'faker'
 puts 'Creating Restaurants'
 50.times do
   Restaurant.new(
-    name: Faker::Company.name +' '+Faker::Hipster.word +' '+Faker::Food.ingredient,
-    address: Faker::Address.street_address + ' '+ Faker::Address.city + ' '+ Faker::Address.state +' ' + Faker::Address.country,
+    name: "#{Faker::Company.name} #{Faker::Hipster.word} #{Faker::Food.ingredient}",
+    address: " #{Faker::Address.street_address} #{Faker::Address.city} #{Faker::Address.state} #{Faker::Address.country}",
     phone_number: Faker::PhoneNumber.phone_number,
     category: %w[chinese italian japanese french belgian].sample
     ).save

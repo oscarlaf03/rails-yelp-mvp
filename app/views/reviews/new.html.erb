@@ -1,2 +1,17 @@
-<h1>Share your review at <%= @review.restaurant %></h1>
-<%= render 'form', restaurant: @review %>
+<h1>Share your review at <%= @restaurant.name %></h1>
+
+
+<%= simple_form_for [@restaurant, @review] do |f| %>
+  <% if @review.errors.any? %>
+    <div class="errors-container">
+      <ul>
+        <% @review.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.input :content, as: :text  %>
+  <%= f.input :rating, collection: [0, 1, 2, 3, 4, 5] %>
+  <%= f.submit "add a review", class: "btn btn-success btn-lg" %>
+<% end %>
