@@ -16,16 +16,21 @@
   <%= link_to '', restaurant_path(@restaurant),method: :delete, data: { confirm: "Are you sure?" }, class: 'far fa-trash-alt fa-lg' %>
 </p>
 
-<% if @reviews.count.positive? %>
-  <h2>
-    Total reviews: <%= @total_reviews %>
-  </h2>
-  <h2>
-    Average Rating: <%= @rating_average %>
-  </h2>
-<% else %>
-  <h2>Be the firstone to review this restaurant</h2>
-<% end %>
+<div class="text-standout">
+  <% if @reviews.count.positive? %>
+      <h2>
+        Average Rating: <%= @rating_average %>
+      </h2>
+      <h2>
+        Total reviews: <%= @total_reviews %>
+      </h2>
+      <% else %>
+      <h2>
+        Be the first to review this restaurant
+      </h2>
+  <% end %>
+</div>
+
 
 <h3>Add your review </h3>
 <%= simple_form_for [@restaurant, @review] do |f| %>
@@ -40,9 +45,9 @@
   <% end %>
   <%= f.input :content, as: :text  %>
   <%= f.input :rating, collection: [0, 1, 2, 3, 4, 5] %>
-  <%= f.submit "add a review", class: "btn btn-success btn-lg" %>
+  <%= f.submit "Add review", class: "btn btn-success btn-lg" %>
+  <%= link_to 'Back', restaurants_path, class: 'btn btn-primary btn-lg' %>
 <% end %>
-
 
 <div class="review-card">
   <h3><%= @reviews.count.positive? ? "Reviews for #{@restaurant.name}" : '' %></h3>
